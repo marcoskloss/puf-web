@@ -23,7 +23,7 @@
             }
         ],
         "react/prop-types": [2, { "skipUndeclared": true }],
-        "prettier/prettier": ["error", "prettier"]
+        "prettier/prettier": "error"
     },
     "parserOptions": {
         "ecmaVersion": 2020,
