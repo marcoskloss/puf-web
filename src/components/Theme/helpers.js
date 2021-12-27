@@ -16,12 +16,17 @@ export const fontSize = props =>
     props.fontSize && `font-size: ${props.theme.fontSizes[props.fontSize]};`
 
 export const flexbox = props => {
-    const display = props.flex && 'display: flex'
+    const display = props.flexbox && 'display: flex'
+    const justifyContent = props.justifyContent || (props.center && 'center')
+    const alignItems = props.alignItems || (props.center && 'center')
 
     if (display) {
         return `
             ${display};
             ${props.col ? 'flex-direction: column;' : ''}
+            ${props.flex ? `flex: ${props.flex};` : ''}
+            ${justifyContent ? `justify-content: ${justifyContent};` : ''}
+            ${alignItems ? `align-items: ${alignItems};` : ''}
         `
     }
 }

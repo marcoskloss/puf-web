@@ -26,4 +26,14 @@ export const GlobalStyle = createGlobalStyle`
     input {
         font-size: inherit;
     }
+
+    p, span, label, button {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
+        'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
+        'Helvetica Neue', sans-serif;
+    }
+
+    button {
+        cursor: pointer;
+    }
 `

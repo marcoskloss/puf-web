@@ -8,5 +8,7 @@ export const Input = styled('input')`
     border-radius: 200px;
     color: ${th.color('white')};
     height: 45px;
-    padding: 0 ${th.space(1)}px;
+    padding: ${th.space(2)}px ${th.space(3)}px;
+
+    outline: none;
 `
