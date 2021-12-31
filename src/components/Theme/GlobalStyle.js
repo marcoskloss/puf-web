@@ -1,5 +1,5 @@
 import { createGlobalStyle } from 'styled-components'
-import { background, th, font } from './helpers'
+import { background, font } from './helpers'
 
 export const GlobalStyle = createGlobalStyle`
     * {

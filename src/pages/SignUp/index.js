@@ -28,6 +28,7 @@ export const SignUp = () => {
                     label="Nome"
                     onChange={onChange}
                     disabled={loading}
+                    error={'Eita! ...'}
                     mb={3}
                 />
                 <Field

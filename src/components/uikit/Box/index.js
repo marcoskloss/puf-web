@@ -5,11 +5,13 @@ import {
     margin,
     padding,
     flexbox,
+    font,
 } from '~/components/Theme/helpers'
 
 export const Box = styled('div')`
     ${padding};
     ${background};
     ${margin};
-    ${flexbox}
+    ${flexbox};
+    ${font};
 `
