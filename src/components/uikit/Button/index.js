@@ -20,9 +20,9 @@ const StyledButton = styled('button')`
         `}
 `
 
-export const Button = ({ disabled, loading, children }) => {
+export const Button = ({ disabled, loading, children, ...rest }) => {
     return (
-        <StyledButton disabled={disabled || loading}>
+        <StyledButton {...rest} disabled={disabled || loading}>
             {loading ? <Spinner /> : children}
         </StyledButton>
     )
