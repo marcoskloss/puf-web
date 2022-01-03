@@ -1,7 +1,7 @@
 import * as React from 'react'
 import styled from 'styled-components'
 
-import { th } from '~/components/Theme/helpers'
+import { th, margin } from '~/components/Theme/helpers'
 import { Spinner } from '~/components'
 
 const StyledButton = styled('button')`
@@ -12,6 +12,8 @@ const StyledButton = styled('button')`
     padding: ${th.space(2)}px ${th.space(8)}px;
     font-size: inherit;
     outline: none;
+
+    ${margin}
 
     ${props =>
         props.disabled &&

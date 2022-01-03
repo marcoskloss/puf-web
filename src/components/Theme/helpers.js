@@ -1,3 +1,6 @@
+const addIfExists = (props, value) =>
+    props !== null && props !== undefined ? value : ''
+
 const theme = prop => value => props => props.theme[prop][value] || value
 
 export const th = {
@@ -7,35 +10,43 @@ export const th = {
 }
 
 export const background = props =>
-    props.bg && `background: ${props.theme.colors[props.bg]};`
+    addIfExists(props.bg, `background: ${props.theme.colors[props.bg]};`)
 
 export const font = props => {
-    const color =
-        props.color &&
-        `color: ${props.theme.colors[props.color] || props.color};`
-
     const fontSize = props.fontSize ?? null
-    const size =
-        fontSize !== null && `font-size: ${props.theme.fontSizes[fontSize]}px;`
 
     return `
-        ${color ? color : ''}
-        ${size ? size : ''}
+        ${addIfExists(
+            props.color,
+            `color: ${props.theme.colors[props.color] || props.color};`
+        )}
+        ${addIfExists(
+            fontSize,
+            `font-size: ${props.theme.fontSizes[fontSize]}px;`
+        )}
+        ${addIfExists(props.textAlign, `text-align: ${props.textAlign};`)}
+        ${addIfExists(props.fontWeight, `font-weight: ${props.fontWeight};`)}
     `
 }
 
 export const flexbox = props => {
-    const display = props.flexbox && 'display: flex'
     const justifyContent = props.justifyContent || (props.center && 'center')
     const alignItems = props.alignItems || (props.center && 'center')
 
-    if (display) {
+    if (props.flexbox) {
         return `
-            ${display};
-            ${props.col ? 'flex-direction: column;' : ''}
-            ${props.flex ? `flex: ${props.flex};` : ''}
-            ${justifyContent ? `justify-content: ${justifyContent};` : ''}
-            ${alignItems ? `align-items: ${alignItems};` : ''}
+            ${addIfExists(props.flexbox, 'display: flex;')};
+            ${addIfExists(props.col, 'flex-direction: column;')};
+            ${addIfExists(props.flex, `flex: ${props.flex};`)};
+            ${addIfExists(
+                justifyContent,
+                `justify-content: ${justifyContent};`
+            )};
+            ${addIfExists(alignItems, `align-items: ${alignItems};`)};
+            ${addIfExists(
+                props.gap,
+                `gap: ${props.theme.spaces[props.gap]}px;`
+            )};
         `
     }
 }
@@ -47,23 +58,23 @@ export const margin = props => {
     const ml = props.ml ?? props.mx ?? props.m ?? null
 
     return `
-        ${mb !== null ? `margin-bottom: ${props.theme.spaces[mb]}px;` : ''}
-        ${mt !== null ? `margin-top: ${props.theme.spaces[mt]}px;` : ''}
-        ${ml !== null ? `margin-left: ${props.theme.spaces[ml]}px;` : ''}
-        ${mr !== null ? `margin-right: ${props.theme.spaces[mr]}px;` : ''}
+        ${addIfExists(mb, `margin-bottom: ${props.theme.spaces[mb]}px;`)}
+        ${addIfExists(mt, `margin-top: ${props.theme.spaces[mt]}px;`)}
+        ${addIfExists(ml, `margin-left: ${props.theme.spaces[ml]}px;`)}
+        ${addIfExists(mr, `margin-right: ${props.theme.spaces[mr]}px;`)}
     `
 }
 
 export const padding = props => {
-    const pb = props.pb ?? props.py ?? props.p ?? 'unset'
-    const pt = props.pt ?? props.py ?? props.p ?? 'unset'
-    const pr = props.pr ?? props.px ?? props.p ?? 'unset'
-    const pl = props.pl ?? props.px ?? props.p ?? 'unset'
+    const pb = props.pb ?? props.py ?? props.p ?? null
+    const pt = props.pt ?? props.py ?? props.p ?? null
+    const pr = props.pr ?? props.px ?? props.p ?? null
+    const pl = props.pl ?? props.px ?? props.p ?? null
 
     return `
-        ${pb !== 'unset' ? `padding-bottom: ${props.theme.spaces[pb]}px;` : ''}
-        ${pt !== 'unset' ? `padding-top: ${props.theme.spaces[pt]}px;` : ''}
-        ${pl !== 'unset' ? `padding-left: ${props.theme.spaces[pl]}px;` : ''}
-        ${pr !== 'unset' ? `padding-right: ${props.theme.spaces[pr]}px;` : ''}
+        ${addIfExists(pb, `padding-bottom: ${props.theme.spaces[pb]}px;`)}
+        ${addIfExists(pt, `padding-top: ${props.theme.spaces[pt]}px;`)}
+        ${addIfExists(pl, `padding-left: ${props.theme.spaces[pl]}px;`)}
+        ${addIfExists(pr, `padding-right: ${props.theme.spaces[pr]}px;`)}
     `
 }
