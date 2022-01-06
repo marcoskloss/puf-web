@@ -1,3 +1,10 @@
-import { ReactComponent as Logo } from './logo.svg'
+import * as React from 'react'
 
-export { Logo }
+import { ReactComponent as Svg } from './logo.svg'
+import { Box } from '~/components'
+
+export const Logo = props => (
+    <Box {...props}>
+        <Svg />
+    </Box>
+)
