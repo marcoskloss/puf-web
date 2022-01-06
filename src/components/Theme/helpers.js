@@ -33,11 +33,12 @@ export const flexbox = props => {
     const justifyContent = props.justifyContent || (props.center && 'center')
     const alignItems = props.alignItems || (props.center && 'center')
 
+    let css = `${addIfExists(props.flex, `flex: ${props.flex};`)};`
+
     if (props.flexbox) {
-        return `
+        css += `
             ${addIfExists(props.flexbox, 'display: flex;')};
             ${addIfExists(props.col, 'flex-direction: column;')};
-            ${addIfExists(props.flex, `flex: ${props.flex};`)};
             ${addIfExists(
                 justifyContent,
                 `justify-content: ${justifyContent};`
@@ -49,6 +50,7 @@ export const flexbox = props => {
             )};
         `
     }
+    return css
 }
 
 export const margin = props => {
