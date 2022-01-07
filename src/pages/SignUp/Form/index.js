@@ -6,10 +6,6 @@ import styled from 'styled-components'
 
 import { Field, Box, Button, font } from '~/components'
 
-const Title = styled('h1')`
-    ${font}
-`
-
 const Link = styled('a')`
     text-decoration: none;
     ${font}
@@ -44,7 +40,7 @@ export const Form = () => {
         },
     })
 
-    async function onSubmit() {
+    async function onSubmit(values) {
         try {
             await axios.post('http://localhost:9901/users', values)
         } catch (error) {
@@ -54,10 +50,6 @@ export const Form = () => {
 
     return (
         <Box as="form" style={{ width: 380 }} onSubmit={handleSubmit}>
-            <Title textAlign="center" fontSize={6}>
-                Cadastro
-            </Title>
-
             <Field
                 type="text"
                 name="name"
@@ -92,7 +84,7 @@ export const Form = () => {
                 mb={3}
             />
 
-            <Box flexbox center col gap={3}>
+            <Box flexbox center col gap={3} mt={6}>
                 <Button type="submit" loading={isSubmitting}>
                     Registrar
                 </Button>

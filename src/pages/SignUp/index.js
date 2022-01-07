@@ -1,5 +1,6 @@
 import * as React from 'react'
-import { Box, Logo } from '~/components'
+import styled from 'styled-components'
+import { Box, Logo, font } from '~/components'
 
 import { ReactComponent as Ilustra } from './ilustra.svg'
 import { Form } from './Form'
@@ -16,6 +17,10 @@ const CenteredBox = ({ children, ...props }) => (
     </Box>
 )
 
+const Title = styled('h1')`
+    ${font}
+`
+
 export const SignUp = () => {
     return (
         <Container>
@@ -25,6 +30,9 @@ export const SignUp = () => {
             </CenteredBox>
 
             <CenteredBox as="main">
+                <Title textAlign="center" fontSize={6}>
+                    Cadastro
+                </Title>
                 <Form />
             </CenteredBox>
         </Container>
