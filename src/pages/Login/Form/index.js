@@ -1,5 +1,4 @@
 import * as React from 'react'
-import axios from 'axios'
 import * as yup from 'yup'
 import { useFormik } from 'formik'
 
@@ -13,7 +12,7 @@ const validationSchema = yup.object().shape({
     password: yup.string().required('Digite uma senha'),
 })
 
-export const Form = () => {
+export const Form = ({ onSubmit }) => {
     const {
         values,
         handleChange,
@@ -30,14 +29,6 @@ export const Form = () => {
             password: '',
         },
     })
-
-    async function onSubmit(auth) {
-        try {
-            await axios.get('http://localhost:9901/login', { auth })
-        } catch (error) {
-            console.log(error)
-        }
-    }
 
     return (
         <Box as="form" style={{ width: 380 }} onSubmit={handleSubmit}>

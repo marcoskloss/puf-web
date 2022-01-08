@@ -1,5 +1,7 @@
 import * as React from 'react'
 import styled from 'styled-components'
+import axios from 'axios'
+
 import { Box, Logo, font } from '~/components'
 
 import { ReactComponent as Ilustra } from './ilustra.svg'
@@ -21,7 +23,17 @@ const Title = styled('h1')`
     ${font}
 `
 
-export const Login = () => {
+export const Login = ({ onSuccess }) => {
+    async function onSubmit(auth) {
+        try {
+            const res = await axios.get('http://localhost:9901/login', { auth })
+
+            onSuccess(res.data)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     return (
         <Container>
             <CenteredBox bg="black">
@@ -33,7 +45,7 @@ export const Login = () => {
                 <Title textAlign="center" fontSize={6}>
                     Login
                 </Title>
-                <Form />
+                <Form onSubmit={onSubmit} />
             </CenteredBox>
         </Container>
     )
