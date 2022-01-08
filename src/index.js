@@ -1,12 +1,19 @@
 import * as React from 'react'
 import ReactDOM from 'react-dom'
 
+import { Theme } from '~/components'
+import { AuthProvider } from '~/modules'
+
 import reportWebVitals from './reportWebVitals'
 import { App } from './pages'
 
 ReactDOM.render(
     <React.StrictMode>
-        <App />
+        <Theme>
+            <AuthProvider>
+                <App />
+            </AuthProvider>
+        </Theme>
     </React.StrictMode>,
     document.getElementById('root')
 )

@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import axios from 'axios'
 
 import { Box, Logo, font } from '~/components'
+import { useAuth } from '~/modules'
 
 import { ReactComponent as Ilustra } from './ilustra.svg'
 import { Form } from './Form'
@@ -23,12 +24,14 @@ const Title = styled('h1')`
     ${font}
 `
 
-export const Login = ({ onSuccess }) => {
+export const Login = () => {
+    const [, { login: setAuth }] = useAuth()
+
     async function onSubmit(auth) {
         try {
             const res = await axios.get('http://localhost:9901/login', { auth })
 
-            onSuccess(res.data)
+            setAuth(res.data)
         } catch (error) {
             console.log(error)
         }

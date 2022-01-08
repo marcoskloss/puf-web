@@ -62,7 +62,12 @@ export const Form = ({ onSubmit }) => {
 
                 <Box fontSize={1} color="gray">
                     Não possui cadastro?{' '}
-                    <Link href="#" fontSize={1} fontWeight="bold" color="gray">
+                    <Link
+                        to="/signup"
+                        fontSize={1}
+                        fontWeight="bold"
+                        color="gray"
+                    >
                         Cadastre-se!
                     </Link>
                 </Box>

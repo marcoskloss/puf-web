@@ -1,42 +1,27 @@
 import * as React from 'react'
-import { useEffect } from 'react'
-import { useState } from 'react'
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 
-import { Theme } from '~/components'
+import { useAuth } from '~/modules'
 
-// import { SignUp } from './SignUp'
+import { SignUp } from './SignUp'
 import { Login } from './Login'
+import { Dashboard } from './Dashboard'
 
-const Page = ({ onLogout }) => {
-    return (
-        <div>
-            <button onClick={onLogout}>sair</button>
-            <div>Eu estou dentro ;D</div>
-        </div>
-    )
-}
+const PublicRoutes = () => (
+    <Routes>
+        <Route path="/" exact element={<Login />} />
+        <Route path="/signup" exact element={<SignUp />} />
+    </Routes>
+)
+
+const LoggedInRoutes = () => (
+    <Routes>
+        <Route path="/" exact element={<Dashboard />} />
+    </Routes>
+)
 
 export const App = () => {
-    const [state, setState] = useState(() => {
-        const data = window.localStorage.getItem('@puf:auth')
-        return data && JSON.parse(data)
-    })
+    const [auth] = useAuth()
 
-    function logout() {
-        setState(false)
-    }
-
-    useEffect(() => {
-        window.localStorage.setItem('@puf:auth', state && JSON.stringify(state))
-    }, [state])
-
-    return (
-        <Theme>
-            {state.user ? (
-                <Page onLogout={logout} />
-            ) : (
-                <Login onSuccess={setState} />
-            )}
-        </Theme>
-    )
+    return <Router>{auth.user ? <LoggedInRoutes /> : <PublicRoutes />}</Router>
 }

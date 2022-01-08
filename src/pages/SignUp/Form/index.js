@@ -81,7 +81,7 @@ export const Form = () => {
                 <Button type="submit" loading={isSubmitting}>
                     Registrar
                 </Button>
-                <Link href="#" fontSize={1} fontWeight="bold" color="gray">
+                <Link to="/" fontSize={1} fontWeight="bold" color="gray">
                     Já sou cadastrado
                 </Link>
             </Box>
