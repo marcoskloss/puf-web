@@ -1,6 +1,10 @@
 import * as React from 'react'
 import styled from 'styled-components'
+import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
+
 import { Box, Logo, font } from '~/components'
+import { useAuth } from '~/modules'
 
 import { ReactComponent as Ilustra } from './ilustra.svg'
 import { Form } from './Form'
@@ -22,6 +26,19 @@ const Title = styled('h1')`
 `
 
 export const SignUp = () => {
+    const [, { login: setAuth }] = useAuth()
+    const navigate = useNavigate()
+
+    async function onSubmit(values) {
+        try {
+            const res = await axios.post('http://localhost:9901/users', values)
+            setAuth({ user: res.data })
+            navigate('/')
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     return (
         <Container>
             <CenteredBox bg="black">
@@ -33,7 +50,7 @@ export const SignUp = () => {
                 <Title textAlign="center" fontSize={6}>
                     Cadastro
                 </Title>
-                <Form />
+                <Form onSubmit={onSubmit} />
             </CenteredBox>
         </Container>
     )

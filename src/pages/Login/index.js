@@ -1,6 +1,7 @@
 import * as React from 'react'
 import styled from 'styled-components'
 import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 
 import { Box, Logo, font } from '~/components'
 import { useAuth } from '~/modules'
@@ -25,6 +26,7 @@ const Title = styled('h1')`
 `
 
 export const Login = () => {
+    const navigate = useNavigate()
     const [, { login: setAuth }] = useAuth()
 
     async function onSubmit(auth) {
@@ -32,6 +34,7 @@ export const Login = () => {
             const res = await axios.get('http://localhost:9901/login', { auth })
 
             setAuth(res.data)
+            navigate('/')
         } catch (error) {
             console.log(error)
         }

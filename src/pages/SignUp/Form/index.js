@@ -14,7 +14,7 @@ const validationSchema = yup.object().shape({
     password: yup.string().required('Digite uma senha'),
 })
 
-export const Form = () => {
+export const Form = ({ onSubmit }) => {
     const {
         values,
         handleChange,
@@ -32,14 +32,6 @@ export const Form = () => {
             password: '',
         },
     })
-
-    async function onSubmit(values) {
-        try {
-            await axios.post('http://localhost:9901/users', values)
-        } catch (error) {
-            console.log(error)
-        }
-    }
 
     return (
         <Box as="form" style={{ width: 380 }} onSubmit={handleSubmit}>
