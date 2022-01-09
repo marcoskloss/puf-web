@@ -5,4 +5,5 @@ Parte web do projeto puf (pay you first) proposto pelo curso 'Desenvolvendo Soft
 ## 🛠️
 - Javascript
 - React
+- Styled Components
 
