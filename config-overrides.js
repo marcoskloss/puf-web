@@ -1,10 +1,18 @@
 const path = require('path')
 
-module.exports = function override(config) {
-    config.resolve = {
-        ...config.resolver,
-        alias: { '~': path.resolve(__dirname, 'src') },
-    }
+module.exports = {
+    webpack: config => {
+        config.resolve = {
+            ...config.resolver,
+            alias: { '~': path.resolve(__dirname, 'src') },
+        }
+        return config
+    },
 
-    return config
+    jest: config => ({
+        ...config,
+        moduleNameMapper: {
+            '^~(.*)$': '<rootDir>/src$1',
+        },
+    }),
 }
