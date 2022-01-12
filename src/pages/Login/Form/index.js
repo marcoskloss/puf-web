@@ -36,6 +36,7 @@ export const Form = ({ onSubmit }) => {
                 type="text"
                 name="username"
                 label="E-mail"
+                placeholder="Digite o seu e-mail"
                 value={values.username}
                 disabled={isSubmitting}
                 error={touched.username && errors.username}
@@ -47,6 +48,7 @@ export const Form = ({ onSubmit }) => {
                 type="password"
                 name="password"
                 label="Senha"
+                placeholder="Digite a sua senha"
                 value={values.password}
                 disabled={isSubmitting}
                 error={touched.password && errors.password}
