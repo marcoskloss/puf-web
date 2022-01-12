@@ -8,7 +8,7 @@ import { Theme } from '~/components'
 
 import { Login } from './'
 
-test('foo', () => {
+test('should show login form', () => {
     render(
         <Theme>
             <Router>
@@ -17,7 +17,15 @@ test('foo', () => {
         </Theme>
     )
 
-    const input = screen.getByLabelText('E-mail')
+    const emailInput = screen.getByLabelText('E-mail')
+    const passwordInput = screen.getByLabelText('Senha')
+    const submitButton = screen.getByRole('button', { type: 'submit' })
+    const signupLink = screen.getByRole('link')
+    
+    expect(emailInput).toBeInTheDocument()
+    expect(passwordInput).toBeInTheDocument()
+    expect(submitButton).toBeInTheDocument()
+    expect(signupLink).toBeInTheDocument()
 
-    expect(input).toBeInTheDocument()
+    expect(signupLink).toHaveAttribute('href', '/signup')
 })
