@@ -1,9 +1,10 @@
-# puf-web 
+# puf-web
 
 Parte web do projeto puf (pay you first) proposto pelo curso 'Desenvolvendo Software de Verdade' da @codarme
 
 ## 🛠️
-- Javascript
-- React
-- Styled Components
 
+-   Javascript
+-   React
+-   Styled Components
+-   Testing Library
