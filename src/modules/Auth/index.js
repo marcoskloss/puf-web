@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { useState, useEffect, createContext, useContext } from 'react'
 
-const AuthContext = createContext([])
+const AuthContext = createContext([{}, () => {}])
 
 export const useAuth = () => {
     const [state, setState] = useContext(AuthContext)
@@ -16,7 +16,7 @@ export const useAuth = () => {
 export const AuthProvider = ({ children }) => {
     const [state, setState] = useState(() => {
         const data = window.localStorage.getItem('@puf:auth')
-        return data && JSON.parse(data)
+        return data ? JSON.parse(data) : {}
     })
 
     useEffect(() => {
