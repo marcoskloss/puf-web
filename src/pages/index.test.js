@@ -22,6 +22,8 @@ function renderPage() {
     )
 }
 
+beforeEach(() => window.localStorage.clear())
+
 test('should show login form', () => {
     renderPage()
 
@@ -85,4 +87,40 @@ test('should login user when submit form with correct credentials', async () => 
     expect(
         screen.getByText(`olá ${responseData.user.name}`)
     ).toBeInTheDocument()
+})
+
+test('should not login user when submit form with wrong credentials', async () => {
+    const credentials = {
+        email: 'wrong@mail.com',
+        password: '123456',
+    }
+
+    axios.get.mockImplementation(() => Promise.reject())
+
+    renderPage()
+
+    const emailInput = screen.getByLabelText('E-mail')
+    const passwordInput = screen.getByLabelText('Senha')
+    const submitButton = screen.getByRole('button', { type: 'submit' })
+
+    userEvent.type(emailInput, credentials.email)
+    userEvent.type(passwordInput, credentials.password)
+    userEvent.click(submitButton)
+
+    expect(submitButton).toBeDisabled()
+
+    await waitFor(() =>
+        expect(axios.get).toHaveBeenCalledWith(
+            expect.stringMatching(/login/g),
+            {
+                auth: {
+                    password: credentials.password,
+                    username: credentials.email,
+                },
+            }
+        )
+    )
+
+    expect(submitButton).toBeEnabled()
+    expect(screen.getByText('Entrar'))
 })
