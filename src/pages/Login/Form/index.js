@@ -21,6 +21,7 @@ export const Form = ({ onSubmit }) => {
         isSubmitting,
         errors,
         touched,
+        isValid,
     } = useFormik({
         onSubmit,
         validationSchema,
@@ -58,7 +59,11 @@ export const Form = ({ onSubmit }) => {
             />
 
             <Box flexbox center col gap={3} mt={6}>
-                <Button type="submit" loading={isSubmitting}>
+                <Button
+                    type="submit"
+                    disabled={!isValid}
+                    loading={isSubmitting}
+                >
                     Entrar
                 </Button>
 
