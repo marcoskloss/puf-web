@@ -21,13 +21,16 @@ function renderPage() {
 test('should validate and show error in email field on blur', async () => {
     renderPage()
 
+    const formData = { email: 'invalid email' }
+
     const passwordInput = screen.getByLabelText('Senha')
     const emailInput = screen.getByLabelText('E-mail')
 
-    await waitFor(() => userEvent.type(emailInput, 'invalid email'))
+    await waitFor(() => userEvent.type(emailInput, formData.email))
     await waitFor(() => userEvent.click(passwordInput))
 
-    expect(screen.getByText('E-mail inválido')).toBeInTheDocument()
+    const emailError = screen.getByText('E-mail inválido')
+    expect(emailError).toBeInTheDocument()
 })
 
 test('should validate and show error in password field on blur', async () => {
@@ -39,7 +42,8 @@ test('should validate and show error in password field on blur', async () => {
     await waitFor(() => userEvent.click(passwordInput))
     await waitFor(() => userEvent.click(emailInput))
 
-    expect(screen.getByText('Digite uma senha')).toBeInTheDocument()
+    const passwordError = screen.getByText('Digite uma senha')
+    expect(passwordError).toBeInTheDocument()
 })
 
 test('should validate and show error in all fields on submit', async () => {
@@ -49,23 +53,29 @@ test('should validate and show error in all fields on submit', async () => {
 
     await waitFor(() => userEvent.click(submitBtn))
 
-    expect(screen.getByText('Digite uma senha')).toBeInTheDocument()
-    expect(screen.getByText('Informe o seu e-mail')).toBeInTheDocument()
+    const passwordError = screen.getByText('Digite uma senha')
+    const emailError = screen.getByText('Informe o seu e-mail')
+
+    expect(passwordError).toBeInTheDocument()
+    expect(emailError).toBeInTheDocument()
     expect(submitBtn).toBeDisabled()
 })
 
 test('should e-enable submit button and hide errors when form is valid', async () => {
     renderPage()
 
+    const formData = {
+        email: 'valid@mail.com',
+        password: '123456'
+    }
+
     const submitBtn = screen.getByRole('button')
-    await waitFor(() => userEvent.click(submitBtn))
-
     const emailInput = screen.getByLabelText('E-mail')
-    userEvent.type(emailInput, 'valid@mail.com')
-
     const passwordInput = screen.getByLabelText('Senha')
-    await waitFor(() => userEvent.type(passwordInput, '123456'))
 
+    await waitFor(() => userEvent.click(submitBtn))
+    userEvent.type(emailInput, formData.email)
+    await waitFor(() => userEvent.type(passwordInput, formData.password))
 
     expect(submitBtn).toBeEnabled()
 })

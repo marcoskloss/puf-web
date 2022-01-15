@@ -84,9 +84,9 @@ test('should login user when submit form with correct credentials', async () => 
             }
         )
     )
-    expect(
-        screen.getByText(`olá ${responseData.user.name}`)
-    ).toBeInTheDocument()
+
+    const loggedInComponent = screen.getByText(`olá ${responseData.user.name}`)
+    expect(loggedInComponent).toBeInTheDocument()
 })
 
 test('should not login user when submit form with wrong credentials', async () => {
