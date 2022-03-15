@@ -66,7 +66,7 @@ test('should e-enable submit button and hide errors when form is valid', async (
 
     const formData = {
         email: 'valid@mail.com',
-        password: '123456'
+        password: '123456',
     }
 
     const submitBtn = screen.getByRole('button')
