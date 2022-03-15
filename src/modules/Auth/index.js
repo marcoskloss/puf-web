@@ -1,31 +1,15 @@
-import * as React from 'react'
-import { useState, useEffect, createContext, useContext } from 'react'
-
-const AuthContext = createContext([{}, () => {}])
+import { useStorage } from '~/modules/Storage'
 
 export const useAuth = () => {
-    const [state, setState] = useContext(AuthContext)
+    const [state, setState] = useStorage()
 
-    function logout() {
-        setState(false)
+    const logout = () => {
+        setState(prevState => ({ ...prevState, auth: {} }))
     }
 
-    return [state, { login: setState, logout }]
-}
+    const login = auth => {
+        setState(prevState => ({ ...prevState, auth, rehydrated: true }))
+    }
 
-export const AuthProvider = ({ children }) => {
-    const [state, setState] = useState(() => {
-        const data = window.localStorage.getItem('@puf:auth')
-        return data ? JSON.parse(data) : {}
-    })
-
-    useEffect(() => {
-        window.localStorage.setItem('@puf:auth', state && JSON.stringify(state))
-    }, [state])
-
-    return (
-        <AuthContext.Provider value={[state, setState]}>
-            {children}
-        </AuthContext.Provider>
-    )
+    return [state?.auth || {}, { login, logout }]
 }

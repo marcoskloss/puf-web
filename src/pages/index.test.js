@@ -6,7 +6,8 @@ import userEvent from '@testing-library/user-event'
 import axios from 'axios'
 
 import { Theme } from '~/components'
-import { AuthProvider } from '~/modules'
+import { StorageProvider } from '~/modules'
+import { localStorageAdapter } from '~/modules/Storage/persistence-adapters/local-storage-adapter'
 
 import { App } from './'
 
@@ -15,16 +16,16 @@ jest.mock('axios')
 function renderPage() {
     render(
         <Theme>
-            <AuthProvider>
+            <StorageProvider persistenceAdapter={localStorageAdapter}>
                 <App />
-            </AuthProvider>
+            </StorageProvider>
         </Theme>
     )
 }
 
-beforeEach(() => window.localStorage.clear())
+beforeEach(() => localStorageAdapter.clear())
 
-test('should show login form', () => {
+test('should show login form', async () => {
     renderPage()
 
     const emailInput = screen.getByLabelText('E-mail')
@@ -32,12 +33,14 @@ test('should show login form', () => {
     const submitButton = screen.getByRole('button', { type: 'submit' })
     const signupLink = screen.getByRole('link')
 
-    expect(emailInput).toBeInTheDocument()
-    expect(passwordInput).toBeInTheDocument()
-    expect(submitButton).toBeInTheDocument()
-    expect(signupLink).toBeInTheDocument()
+    await waitFor(() => {
+        expect(emailInput).toBeInTheDocument()
+        expect(passwordInput).toBeInTheDocument()
+        expect(submitButton).toBeInTheDocument()
+        expect(signupLink).toBeInTheDocument()
 
-    expect(signupLink).toHaveAttribute('href', '/signup')
+        expect(signupLink).toHaveAttribute('href', '/signup')
+    })
 })
 
 test('should login user when submit form with correct credentials', async () => {

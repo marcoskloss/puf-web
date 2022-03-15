@@ -2,7 +2,8 @@ import * as React from 'react'
 import ReactDOM from 'react-dom'
 
 import { Theme } from '~/components'
-import { AuthProvider } from '~/modules'
+import { StorageProvider } from './modules'
+import { localStorageAdapter } from './modules/Storage/persistence-adapters/local-storage-adapter'
 
 import reportWebVitals from './reportWebVitals'
 import { App } from './pages'
@@ -10,9 +11,9 @@ import { App } from './pages'
 ReactDOM.render(
     <React.StrictMode>
         <Theme>
-            <AuthProvider>
+            <StorageProvider persistenceAdapter={localStorageAdapter}>
                 <App />
-            </AuthProvider>
+            </StorageProvider>
         </Theme>
     </React.StrictMode>,
     document.getElementById('root')
