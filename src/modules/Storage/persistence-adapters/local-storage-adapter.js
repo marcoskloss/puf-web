@@ -2,7 +2,7 @@ const AUTH_KEY = '@puf:auth'
 
 export const localStorageAdapter = {
     getItem: () => {
-        return window.localStorage.getItem(AUTH_KEY)
+        return JSON.parse(window.localStorage.getItem(AUTH_KEY))
     },
 
     setItem: value => {

@@ -8,7 +8,9 @@ export const useAuth = () => {
     }
 
     const login = auth => {
-        setState(prevState => ({ ...prevState, auth, rehydrated: true }))
+        setState(prevState => {
+            return { ...prevState, auth, rehydrated: true }
+        })
     }
 
     return [state?.auth || {}, { login, logout }]

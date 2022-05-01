@@ -26,7 +26,9 @@ export const PersistenceProvider = ({ children, persistenceAdapter }) => {
     }, [persistenceAdapter, setState])
 
     useEffect(() => {
-        state?.rehydrated && persistenceAdapter.setItem(state)
+        if (state?.rehydrated) {
+            persistenceAdapter.setItem(state)
+        }
     }, [state, persistenceAdapter])
 
     return children
