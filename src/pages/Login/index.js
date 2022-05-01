@@ -1,10 +1,10 @@
 import * as React from 'react'
 import styled from 'styled-components'
-import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 
 import { Box, Logo, font } from '~/components'
 import { useAuth } from '~/modules'
+import { login } from '~/services/sdk'
 
 import { ReactComponent as Ilustra } from './ilustra.svg'
 import { Form } from './Form'
@@ -31,9 +31,9 @@ export const Login = () => {
 
     async function onSubmit(auth) {
         try {
-            const res = await axios.get('http://localhost:9901/login', { auth })
+            const { user, token } = await login(auth)
 
-            setAuth(res.data)
+            setAuth({ user, token })
             navigate('/')
         } catch (error) {
             console.log(error)
