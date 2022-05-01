@@ -7,3 +7,12 @@ export const login = async ({ password, username }) => {
 
     return response.data
 }
+
+export const signup = async ({ name, email, password }) => {
+    const response = await fetch.post('/signup', {
+        name,
+        email,
+        password,
+    })
+    return response.data
+}

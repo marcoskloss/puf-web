@@ -3,15 +3,15 @@ import '@testing-library/jest-dom'
 import * as React from 'react'
 import { render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import axios from 'axios'
 
 import { Theme } from '~/components'
 import { StorageProvider } from '~/modules'
 import { localStorageAdapter } from '~/modules/Storage/persistence-adapters/local-storage-adapter'
+import { login } from '~/services/sdk'
 
 import { App } from './'
 
-jest.mock('axios')
+jest.mock('~/services/sdk')
 
 function renderPage() {
     render(
@@ -58,11 +58,7 @@ test('should login user when submit form with correct credentials', async () => 
         token: 'asdasdasd',
     }
 
-    axios.get.mockImplementation(() =>
-        Promise.resolve({
-            data: responseData,
-        })
-    )
+    login.mockResolvedValue(Promise.resolve(responseData))
 
     renderPage()
 
@@ -77,15 +73,10 @@ test('should login user when submit form with correct credentials', async () => 
     expect(submitButton).toBeDisabled()
 
     await waitFor(() =>
-        expect(axios.get).toHaveBeenCalledWith(
-            expect.stringMatching(/login/g),
-            {
-                auth: {
-                    password: credentials.password,
-                    username: credentials.email,
-                },
-            }
-        )
+        expect(login).toHaveBeenCalledWith({
+            password: credentials.password,
+            username: credentials.email,
+        })
     )
 
     const loggedInComponent = screen.getByText(`olá ${responseData.user.name}`)
@@ -98,7 +89,7 @@ test('should not login user when submit form with wrong credentials', async () =
         password: '123456',
     }
 
-    axios.get.mockImplementation(() => Promise.reject())
+    login.mockImplementation(() => Promise.reject())
 
     renderPage()
 
@@ -113,15 +104,10 @@ test('should not login user when submit form with wrong credentials', async () =
     expect(submitButton).toBeDisabled()
 
     await waitFor(() =>
-        expect(axios.get).toHaveBeenCalledWith(
-            expect.stringMatching(/login/g),
-            {
-                auth: {
-                    password: credentials.password,
-                    username: credentials.email,
-                },
-            }
-        )
+        expect(login).toHaveBeenCalledWith({
+            password: credentials.password,
+            username: credentials.email,
+        })
     )
 
     expect(submitButton).toBeEnabled()
