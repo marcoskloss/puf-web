@@ -43,7 +43,7 @@ test('should show login form', async () => {
     })
 })
 
-test('should login user when submit form with correct credentials', async () => {
+test.skip('should login user when submit form with correct credentials', async () => {
     const credentials = {
         email: 'user@mail.com',
         password: '123456',

@@ -19,13 +19,97 @@ const Menu = styled.aside`
     padding: ${th.space(2)}px;
 `
 
+const Layout = ({ children }) => (
+    <Container>
+        <Menu>
+            <Logo onlyIcon height={50} />
+        </Menu>
+        <Main>{children}</Main>
+    </Container>
+)
+
+const Title = styled.h1`
+    font-size: ${th.size(6)}px;
+`
+
+const Section = styled.section`
+    background: ${th.color('black')};
+    padding: ${th.space(3)}px ${th.space(5)}px;
+    border-radius: ${th.space(1)}px;
+    position: relative;
+`
+
+const SectionTitle = styled.h2`
+    font-size: ${th.size(2)}px;
+    font-weight: 400;
+`
+
+const TransactionAddBtn = styled.button`
+    position: absolute;
+    right: 0;
+    top: 0;
+    border: 0;
+    background: ${th.color('darkGray')};
+    color: ${th.color('gray')};
+    font-size: ${th.size(4)}px;
+    font-weight: 'bold';
+    padding: ${th.space(2)}px ${th.space(4)}px;
+    border-radius: 0 ${th.space(0)}px 0 ${th.space(0)}px;
+`
+
+const SectionHeader = styled.header`
+    margin-bottom: ${th.space(7)}px;
+`
+
+const Transaction = styled.li`
+    display: flex;
+
+    &:not(:last-child) {
+        border-bottom: 1px solid ${th.color('line')};
+        margin-bottom: ${th.space(3)}px;
+        padding-bottom: ${th.space(3)}px;
+    }
+`
+const TransactionTitle = styled.div`
+    flex: 1;
+`
+
+const TransactionValue = styled.div`
+    text-align: right;
+    font-size: ${th.size(2)}px;
+
+    small {
+        margin-top: ${th.space(1)}px;
+        font-size: ${th.size(1)}px;
+    }
+`
+
 export const Dashboard = () => {
     return (
-        <Container>
-            <Menu>
-                <Logo onlyIcon height={50} />
-            </Menu>
-            <Main>content</Main>
-        </Container>
+        <Layout>
+            <Title>Dashboard</Title>
+            <Section>
+                <SectionHeader>
+                    <SectionTitle>Transações</SectionTitle>
+                    <TransactionAddBtn>+</TransactionAddBtn>
+                </SectionHeader>
+                <ul>
+                    <Transaction>
+                        <TransactionTitle>Conta A</TransactionTitle>
+                        <TransactionValue>
+                            <div>- R$ 53,00</div>
+                            <small>Não paga</small>
+                        </TransactionValue>
+                    </Transaction>
+                    <Transaction>
+                        <TransactionTitle>Conta A</TransactionTitle>
+                        <TransactionValue>
+                            <div>- R$ 33,00</div>
+                            <small>Paga</small>
+                        </TransactionValue>
+                    </Transaction>
+                </ul>
+            </Section>
+        </Layout>
     )
 }
