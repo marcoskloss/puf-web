@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components'
 
-import { th } from '~/components/Theme/helpers'
+import { th } from '../../Theme/helpers'
 
 export const Input = styled('input')`
     background: transparent;

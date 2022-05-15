@@ -1,7 +1,8 @@
 import * as React from 'react'
 import styled from 'styled-components'
 
-import { th, Logo, Transaction } from '~/components'
+import { th, Logo } from '../../components'
+import { Transaction } from '../../components/system'
 
 const Container = styled.div`
     display: flex;

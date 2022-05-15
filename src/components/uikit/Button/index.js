@@ -1,8 +1,8 @@
 import * as React from 'react'
 import styled from 'styled-components'
 
-import { th, margin } from '~/components/Theme/helpers'
-import { Spinner } from '~/components'
+import { th, margin } from '../../Theme/helpers'
+import { Spinner } from '../Spinner'
 
 const StyledButton = styled('button')`
     background: ${th.color('white')};

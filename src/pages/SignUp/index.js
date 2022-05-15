@@ -2,9 +2,9 @@ import * as React from 'react'
 import styled from 'styled-components'
 import { useNavigate } from 'react-router-dom'
 
-import { Box, Logo, font } from '~/components'
-import { useAuth } from '~/modules'
-import { signup } from '~/services/sdk'
+import { Box, Logo, font } from '../../components'
+import { useAuth } from '../../modules'
+import { signup } from '../../services/sdk'
 
 import { ReactComponent as Ilustra } from './ilustra.svg'
 import { Form } from './Form'

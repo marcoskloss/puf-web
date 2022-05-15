@@ -1,10 +1,10 @@
 import * as React from 'react'
 import styled from 'styled-components'
 
-import { th } from '~/components/Theme'
-import { Box } from '~/components/uikit/Box'
-import { Input } from '~/components/uikit/Input'
-import { Label } from '~/components/uikit/Label'
+import { th } from '../../Theme'
+import { Box } from '../Box'
+import { Input } from '../Input'
+import { Label } from '../Label'
 
 const ErrorMessage = styled(Box)`
     color: ${th.color('red')};

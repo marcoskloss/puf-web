@@ -5,7 +5,7 @@ import { BrowserRouter as Router } from 'react-router-dom'
 import userEvent from '@testing-library/user-event'
 import { render, screen, waitFor } from '@testing-library/react'
 
-import { Theme } from '~/components'
+import { Theme } from '../../components'
 import { Login } from './'
 
 function renderPage() {

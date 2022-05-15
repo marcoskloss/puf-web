@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import { Link as RouterLink } from 'react-router-dom'
 
-import { font } from '~/components/Theme/helpers'
+import { font } from '../../Theme/helpers'
 
 export const Link = styled(RouterLink)`
     text-decoration: none;

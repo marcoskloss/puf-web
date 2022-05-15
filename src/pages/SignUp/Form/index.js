@@ -2,7 +2,7 @@ import * as React from 'react'
 import * as yup from 'yup'
 import { useFormik } from 'formik'
 
-import { Field, Box, Button, Link } from '~/components'
+import { Field, Box, Button, Link } from '../../../components'
 
 const validationSchema = yup.object().shape({
     name: yup.string().required('Informe o seu nome'),

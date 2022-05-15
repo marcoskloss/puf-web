@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 
-import { useAuth } from '~/modules'
+import { useAuth } from '../modules'
 
 import { SignUp } from './SignUp'
 import { Login } from './Login'

@@ -1,6 +1,6 @@
 import * as React from 'react'
 import styled from 'styled-components'
-import { th } from '~/components'
+import { th } from '../../Theme/helpers'
 
 const Container = styled.li`
     display: flex;
