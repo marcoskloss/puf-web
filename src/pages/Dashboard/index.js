@@ -1,7 +1,7 @@
 import * as React from 'react'
 import styled from 'styled-components'
 
-import { th, Logo } from '~/components'
+import { th, Logo, Transaction } from '~/components'
 
 const Container = styled.div`
     display: flex;
@@ -44,7 +44,7 @@ const SectionTitle = styled.h2`
     font-weight: 400;
 `
 
-const TransactionAddBtn = styled.button`
+const AddButton = styled.button`
     position: absolute;
     right: 0;
     top: 0;
@@ -61,29 +61,6 @@ const SectionHeader = styled.header`
     margin-bottom: ${th.space(7)}px;
 `
 
-const Transaction = styled.li`
-    display: flex;
-
-    &:not(:last-child) {
-        border-bottom: 1px solid ${th.color('line')};
-        margin-bottom: ${th.space(3)}px;
-        padding-bottom: ${th.space(3)}px;
-    }
-`
-const TransactionTitle = styled.div`
-    flex: 1;
-`
-
-const TransactionValue = styled.div`
-    text-align: right;
-    font-size: ${th.size(2)}px;
-
-    small {
-        margin-top: ${th.space(1)}px;
-        font-size: ${th.size(1)}px;
-    }
-`
-
 export const Dashboard = () => {
     return (
         <Layout>
@@ -91,23 +68,15 @@ export const Dashboard = () => {
             <Section>
                 <SectionHeader>
                     <SectionTitle>Transações</SectionTitle>
-                    <TransactionAddBtn>+</TransactionAddBtn>
+                    <AddButton>+</AddButton>
                 </SectionHeader>
                 <ul>
-                    <Transaction>
-                        <TransactionTitle>Conta A</TransactionTitle>
-                        <TransactionValue>
-                            <div>- R$ 53,00</div>
-                            <small>Não paga</small>
-                        </TransactionValue>
-                    </Transaction>
-                    <Transaction>
-                        <TransactionTitle>Conta A</TransactionTitle>
-                        <TransactionValue>
-                            <div>- R$ 33,00</div>
-                            <small>Paga</small>
-                        </TransactionValue>
-                    </Transaction>
+                    <Transaction
+                        title="Conta A"
+                        value={-53.0}
+                        resolved={false}
+                    />
+                    <Transaction title="Conta B" value={33.0} resolved />
                 </ul>
             </Section>
         </Layout>
