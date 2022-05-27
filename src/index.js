@@ -2,7 +2,7 @@ import * as React from 'react'
 import ReactDOM from 'react-dom'
 
 import { Theme } from '~/components'
-import { StorageProvider } from './modules'
+import { onRehydrateAuthMiddleware, StorageProvider } from './modules'
 import { localStorageAdapter } from './modules/Storage/persistence-adapters/local-storage-adapter'
 
 import reportWebVitals from './reportWebVitals'
@@ -11,7 +11,10 @@ import { App } from './pages'
 ReactDOM.render(
     <React.StrictMode>
         <Theme>
-            <StorageProvider persistenceAdapter={localStorageAdapter}>
+            <StorageProvider
+                persistenceAdapter={localStorageAdapter}
+                onRehydrate={onRehydrateAuthMiddleware}
+            >
                 <App />
             </StorageProvider>
         </Theme>

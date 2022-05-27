@@ -1,5 +1,11 @@
 import * as React from 'react'
-import { createContext, useState, useContext, useEffect } from 'react'
+import {
+    createContext,
+    useState,
+    useContext,
+    useEffect,
+    useCallback,
+} from 'react'
 
 const MemoryStorageContext = createContext([{}, () => ({})])
 
@@ -13,17 +19,22 @@ export const MemoryStorageProvider = ({ children, initialState = {} }) => {
     )
 }
 
-export const PersistenceProvider = ({ children, persistenceAdapter }) => {
+export const PersistenceProvider = ({
+    onRehydrate,
+    children,
+    persistenceAdapter,
+}) => {
     const [state, setState] = useContext(MemoryStorageContext)
 
-    useEffect(() => {
-        const getItem = async () => {
-            const result = await persistenceAdapter.getItem()
-            setState({ ...result, rehydrated: true })
-        }
+    const rehydrate = useCallback(async () => {
+        const result = await persistenceAdapter.getItem()
+        const data = await onRehydrate(result)
+        setState({ ...data, rehydrated: true })
+    }, [onRehydrate, persistenceAdapter, setState])
 
-        getItem()
-    }, [persistenceAdapter, setState])
+    useEffect(() => {
+        rehydrate()
+    }, [rehydrate])
 
     useEffect(() => {
         if (state?.rehydrated) {
@@ -34,12 +45,19 @@ export const PersistenceProvider = ({ children, persistenceAdapter }) => {
     return children
 }
 
-export const StorageProvider = ({ persistenceAdapter, children }) => {
+export const StorageProvider = ({
+    onRehydrate,
+    persistenceAdapter,
+    children,
+}) => {
     const initialState = { rehydrated: false }
 
     return (
         <MemoryStorageProvider initialState={initialState}>
-            <PersistenceProvider persistenceAdapter={persistenceAdapter}>
+            <PersistenceProvider
+                persistenceAdapter={persistenceAdapter}
+                onRehydrate={onRehydrate}
+            >
                 {children}
             </PersistenceProvider>
         </MemoryStorageProvider>
