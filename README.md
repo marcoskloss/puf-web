@@ -3,18 +3,26 @@
 Parte web do projeto puf (pay you first) proposto pelo curso 'Desenvolvendo Software de Verdade' da @codarme
 
 ### Para rodar o projeto na sua máquina
+
 ```bash
     git clone https://github.com/marcoskloss/puf-web.git
     cd puf-web
+
+    # setup env vars
+    cp .env.example .env
+
     yarn
     yarn start
 ```
 
 ### Para rodar os testes
+
 ```bash
     yarn test
 ```
+
 #### Layout
+
 https://www.figma.com/file/4xnXj5ZyJbA2d7qWvWzAom/PUF_MOBILE?node-id=0%3A1
 
 #### 🛠️ Ferramentas
@@ -23,4 +31,3 @@ https://www.figma.com/file/4xnXj5ZyJbA2d7qWvWzAom/PUF_MOBILE?node-id=0%3A1
 -   React
 -   Styled Components
 -   Testing Library
-
