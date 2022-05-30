@@ -16,7 +16,10 @@ jest.mock('~/services/sdk')
 function renderPage() {
     render(
         <Theme>
-            <StorageProvider persistenceAdapter={localStorageAdapter}>
+            <StorageProvider
+                persistenceAdapter={localStorageAdapter}
+                onRehydrate={data => data}
+            >
                 <App />
             </StorageProvider>
         </Theme>
