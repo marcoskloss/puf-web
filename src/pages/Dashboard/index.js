@@ -4,8 +4,7 @@ import styled from 'styled-components'
 
 import { th, Logo } from '../../components'
 import { Transaction } from '../../components/system'
-import { useAuth } from '../../modules'
-import * as SDK from '../../services/sdk'
+import { getTransactions } from '../../services/sdk'
 
 const Container = styled.div`
     display: flex;
@@ -66,14 +65,11 @@ const SectionHeader = styled.header`
 `
 
 export const Dashboard = () => {
-    const [auth] = useAuth()
     const [transactions, setTransactions] = useState([])
 
     useEffect(() => {
-        SDK.getTransaction({ token: auth.token }).then(data => {
-            setTransactions(data)
-        })
-    }, [auth.token])
+        getTransactions().then(setTransactions)
+    }, [])
 
     return (
         <Layout>
@@ -84,16 +80,14 @@ export const Dashboard = () => {
                     <AddButton>+</AddButton>
                 </SectionHeader>
                 <ul>
-                    {transactions.map(
-                        ({ id, description, value, resolved }) => (
-                            <Transaction
-                                key={id}
-                                title={description}
-                                value={value}
-                                resolved={resolved}
-                            />
-                        )
-                    )}
+                    {transactions.map(transaction => (
+                        <Transaction
+                            key={transaction.id}
+                            title={transaction.description}
+                            value={transaction.value}
+                            resolved={transaction.resolved}
+                        />
+                    ))}
                 </ul>
             </Section>
         </Layout>
