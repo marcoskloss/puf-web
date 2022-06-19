@@ -4,19 +4,22 @@ import * as React from 'react'
 import { render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 
-import { Theme } from '~/components'
-import { StorageProvider } from '~/modules'
-import { localStorageAdapter } from '~/modules/Storage/persistence-adapters/local-storage-adapter'
-import { login } from '~/services/sdk'
+import { Theme } from '../components'
+import { StorageProvider } from '../modules'
+import { localStorageAdapter } from '..//modules/Storage/persistence-adapters/local-storage-adapter'
+import { login, getTransactions } from '../services/sdk'
 
 import { App } from './'
 
-jest.mock('~/services/sdk')
+jest.mock('../services/sdk')
 
 function renderPage() {
     render(
         <Theme>
-            <StorageProvider persistenceAdapter={localStorageAdapter}>
+            <StorageProvider
+                persistenceAdapter={localStorageAdapter}
+                onRehydrate={data => data}
+            >
                 <App />
             </StorageProvider>
         </Theme>
@@ -43,7 +46,7 @@ test('should show login form', async () => {
     })
 })
 
-test.skip('should login user when submit form with correct credentials', async () => {
+test('should login user when submit form with correct credentials', async () => {
     const credentials = {
         email: 'user@mail.com',
         password: '123456',
@@ -59,6 +62,7 @@ test.skip('should login user when submit form with correct credentials', async (
     }
 
     login.mockResolvedValue(Promise.resolve(responseData))
+    getTransactions.mockResolvedValue(Promise.resolve([]))
 
     renderPage()
 
@@ -79,7 +83,7 @@ test.skip('should login user when submit form with correct credentials', async (
         })
     )
 
-    const loggedInComponent = screen.getByText(`olá ${responseData.user.name}`)
+    const loggedInComponent = screen.getByText(`Dashboard`)
     expect(loggedInComponent).toBeInTheDocument()
 })
 
